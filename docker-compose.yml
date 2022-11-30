@@ -6,7 +6,7 @@ services:
     ports:
       - '8080:3000'
     container_name: 'frontend'
-    command: git pull origin master | npm install | npm start
+    command: sh -c "git pull origin master && npm install && npm start"
 
   pgsql:
     image: postgres:alpine
@@ -18,11 +18,6 @@ services:
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword
-
-  adminer:
-    image: adminer
-    ports:
-      - 6000:8080
 
 volumes:
   pg-data:
