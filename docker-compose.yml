@@ -8,6 +8,13 @@ services:
     container_name: 'frontend'
     command: sh -c "git pull origin master && npm install && npm start"
 
+  backend:
+    image: baniomash1/web_nuvem_backend:latest
+    ports:
+      - '5000:5000'
+    container_name: 'backend'
+    command: sh -c "git pull origin master && npm install && npm start"
+
   pgsql:
     image: postgres:alpine
     ports:
