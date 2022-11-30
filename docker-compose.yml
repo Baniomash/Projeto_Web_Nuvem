@@ -1,12 +1,18 @@
 version: '3'
 
 services:
+  frontend:
+    image: baniomash1/node_web_nuvem:latest
+    ports:
+      - '8080:3000'
+    container_name: 'frontend'
+    command: git pull origin master | npm install | npm start
+
   pgsql:
     image: postgres:alpine
     ports:
       - '5432:5432'
     container_name: 'pgsql'
-    restart: always
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
@@ -15,9 +21,8 @@ services:
 
   adminer:
     image: adminer
-    restart: always
     ports:
-      - 8080:8080
+      - 6000:8080
 
 volumes:
   pg-data:
