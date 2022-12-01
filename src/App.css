@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  background-color: #282c34;
+  min-height: 100vh;
+  font-size: calc(10px + 2vmin);
+  color: white;
 }
 
 .App-logo {
@@ -14,18 +18,42 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
 .App-link {
   color: #61dafb;
+}
+
+.tabela {
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid white;
+  border-radius: 10px;
+}
+
+tr, th{
+  border: 3px solid white;
+  border-radius: 10px;
+}
+
+.btn-busca{
+  background-color: #585f6e;
+  color: white;
+  border-radius: 5px;
+}
+
+.btn-busca:hover {
+  background-color: white;
+  color: black;
+}
+
+.btn-busca:active {
+  background-color: rgb(179, 179, 179);
+  color: white;
 }
 
 @keyframes App-logo-spin {
