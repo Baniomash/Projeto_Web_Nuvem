@@ -5,18 +5,19 @@ import Api from './hooks/Api';
 
 function App() {
   // const [listaTitulos, setListaTitulos] = useState([]);
-  const listaTitulos = [{nome: 'Mundial', ano: 1992, tipo: "internacional"}, {nome: 'Mundial', ano: 1993, tipo: "internacional"}]
+  // const listaTitulos = [{nome: 'Mundial', ano: 1992, tipo: "internacional"}, {nome: 'Mundial', ano: 1993, tipo: "internacional"}];
+  const listaTitulos = [];
   const busca = (tipo) => {
     if (tipo === 'Todos') {
       setBtnState(0);
     } else if (tipo === 'Estaduais') {
-      setBtnState(0);
+      setBtnState(1);
     } else if (tipo === 'Nacionais') {
-      setBtnState(0);
+      setBtnState(2);
     } else if (tipo === 'Internacionais') {
-      setBtnState(0);
+      setBtnState(3);
     } else {
-      setBtnState(0);
+      setBtnState(4);
     }
   };
   const [btnState, setBtnState] = useState();
