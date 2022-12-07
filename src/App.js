@@ -1,30 +1,26 @@
 import { useEffect, useState } from 'react';
 import './App.css';
-import Api from './hooks/Api';
+import api from './hooks/Api';
 
 
 function App() {
-  // const [listaTitulos, setListaTitulos] = useState([]);
-  // const listaTitulos = [{nome: 'Mundial', ano: 1992, tipo: "internacional"}, {nome: 'Mundial', ano: 1993, tipo: "internacional"}];
-  const listaTitulos = [];
-  const busca = (tipo) => {
-    if (tipo === 'Todos') {
-      setBtnState(0);
-    } else if (tipo === 'Estaduais') {
-      setBtnState(1);
-    } else if (tipo === 'Nacionais') {
-      setBtnState(2);
-    } else if (tipo === 'Internacionais') {
-      setBtnState(3);
+  async function buscarTitulos(btnState){
+    if(btnState === 0){
+      const data = await api.get('');
+      console.log(data.data);
+      return data.data;
     } else {
-      setBtnState(4);
+      return [];
     }
-  };
+  }
+
+  const [listaTitulos, setListaTitulos] = useState([]);
+  // const listaTitulos = [];
+
   const [btnState, setBtnState] = useState();
   
   useEffect(() => {
-    // setListaTitulos(Api(btnState));
-    alert(Api(btnState));
+    setListaTitulos(buscarTitulos(btnState));
   }, [btnState]);
 
   return (
@@ -34,22 +30,30 @@ function App() {
       </header>
       <div className="quadroTabela">
         <div className="quadroBotoes">
-          <button className="btn-busca" onClick={()=>busca('Todos')}>Todos os Títulos</button>
-          <button className="btn-busca" onClick={()=>busca('Estaduais')}>Títulos Estaduais</button>
-          <button className="btn-busca" onClick={()=>busca('Nacionais')}>Títulos Nacionais</button>
-          <button className="btn-busca" onClick={()=>busca('Internacionais')}>Títulos Internacionais</button>
+          <button className="btn-busca" onClick={() => setBtnState(0)}>Todos os Títulos</button>
+          <button className="btn-busca" onClick={() => setBtnState(1)}>Títulos Estaduais</button>
+          <button className="btn-busca" onClick={() => setBtnState(2)}>Títulos Nacionais</button>
+          <button className="btn-busca" onClick={() => setBtnState(3)}>Títulos Internacionais</button>
         </div>
         <table className="tabela">
+          <thead>
           <tr>
             <th>Título</th>
             <th>Ano</th>
           </tr>
-          {listaTitulos !== []?listaTitulos.map((titulo)=>(
+          </thead>
+          <tbody>
+          {listaTitulos.length > 0?listaTitulos.map(titulo=>(
             <tr>
-            <td>{titulo.nome}</td>
-            <td>{titulo.ano}</td>
+              <td>{titulo.nome}</td>
+              <td>{titulo.ano}</td>
+            </tr>
+          )):
+          <tr>
+            <td>Selecione uma das opções acima</td>
           </tr>
-          )):<></>}
+          }
+          </tbody>
         </table>    
       </div>
     </div>
