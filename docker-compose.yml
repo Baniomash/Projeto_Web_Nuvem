@@ -4,17 +4,15 @@ services:
   pgsql:
     image: postgres:alpine
     ports:
-      - '5433:5432'
+      - '5432:5432'
     expose:
-      - '5433'
+      - '5432'
     container_name: 'pgsql'
     volumes:
       - pg-data:/var/lib/postgresql/data
     environment:
       POSTGRES_USER: pguser
       POSTGRES_PASSWORD: pgpassword
-    networks:
-      - app-network
       
   backend:
     image: baniomash1/web_nuvem_backend:latest
@@ -22,8 +20,6 @@ services:
       - '5000:5000'
     container_name: 'backend'
     command: sh -c "git pull origin master && yarn && yarn start:dev"
-    networks:
-      - app-network
 
   frontend:
     image: baniomash1/node_web_nuvem:latest
@@ -31,19 +27,11 @@ services:
       - '80:3000'
     container_name: 'frontend'
     command: sh -c "git pull origin master && npm install && npm start"
-    networks:
-      - app-network
 
   adminer:
     image: adminer
     ports:
       - 8080:8080
-    networks:
-      - app-network
 
 volumes:
   pg-data:
-
-networks:
-  app-network:
-    driver: bridge
