@@ -1,27 +1,34 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import './App.css';
 import api from './hooks/Api';
 
 
 function App() {
-  async function buscarTitulos(btnState){
-    if(btnState === 0){
+  async function buscarTitulos(tipo){
+    if(tipo === 0){
       const data = await api.get('');
-      console.log(data.data);
+      setListaTitulos(data.data);
+      return data.data;
+    } else if(tipo === 1){
+      const data = await api.get('estaduais/');
+      setListaTitulos(data.data);
+      return data.data;
+    } else if(tipo === 2){
+      const data = await api.get('nacionais/');
+      setListaTitulos(data.data);
+      return data.data;
+    } else if(tipo === 3){
+      const data = await api.get('internacionais/');
+      setListaTitulos(data.data);
       return data.data;
     } else {
+      setListaTitulos([]);
       return [];
     }
   }
 
   const [listaTitulos, setListaTitulos] = useState([]);
   // const listaTitulos = [];
-
-  const [btnState, setBtnState] = useState();
-  
-  useEffect(() => {
-    setListaTitulos(buscarTitulos(btnState));
-  }, [btnState]);
 
   return (
     <div className="App">
@@ -30,10 +37,10 @@ function App() {
       </header>
       <div className="quadroTabela">
         <div className="quadroBotoes">
-          <button className="btn-busca" onClick={() => setBtnState(0)}>Todos os Títulos</button>
-          <button className="btn-busca" onClick={() => setBtnState(1)}>Títulos Estaduais</button>
-          <button className="btn-busca" onClick={() => setBtnState(2)}>Títulos Nacionais</button>
-          <button className="btn-busca" onClick={() => setBtnState(3)}>Títulos Internacionais</button>
+          <button className="btn-busca" onClick={() => buscarTitulos(0)}>Todos os Títulos</button>
+          <button className="btn-busca" onClick={() => buscarTitulos(1)}>Títulos Estaduais</button>
+          <button className="btn-busca" onClick={() => buscarTitulos(2)}>Títulos Nacionais</button>
+          <button className="btn-busca" onClick={() => buscarTitulos(3)}>Títulos Internacionais</button>
         </div>
         <table className="tabela">
           <thead>
